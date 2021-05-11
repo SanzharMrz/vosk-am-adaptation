@@ -4,6 +4,8 @@ Fine-Tuning русскоязычной акустической модели [ht
 
 # Prepare data
 Официальный гайд с Kaldi [Data Preparation](https://kaldi-asr.org/doc/data_prep.html)
+Есть еще код от JohnDoe, для [RM](https://catalog.ldc.upenn.edu/LDC93S3C) датасета, форкнутый репозиторий Kaldi, в котором [prepare_data.py](https://github.com/JohnDoe02/kaldi/blob/private/egs/rm/s5/local/prepare_data.py) парсящий
+некий dataset.tsv с колонками,  __"File"__, __"Length"__, __"Directory"__, __"Recognition"__ , здесь стоит обратить внимание, что __"File"__ - это названием файла с полным путем до него,  "Length" может быть заполнен чем угодно, Directory полный путь до папки с файлами,  "Recognition" текст из wav файлов.
 
 В моем кейсе, когда каждый новый wav файл, это новая запись, и плюс отсутсвуют segments, все файлики, где имеется recording-id могут быть заменены на utterance-id
 >  if the "segments" file does not exist, the first token on each line of "wav.scp" file is just the utterance id. "
