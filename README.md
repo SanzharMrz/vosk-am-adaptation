@@ -9,9 +9,14 @@ Fine-Tuning русскоязычной акустической модели [ht
 >  if the "segments" file does not exist, the first token on each line of "wav.scp" file is just the utterance id. "
  
 wav.scp
+
 ![wav.scp](https://user-images.githubusercontent.com/48170101/117793265-e0586180-b26d-11eb-96d3-4614ed6c66c7.png)
+
 utt2spk
+
 ![utt2spk](https://user-images.githubusercontent.com/48170101/117793486-17c70e00-b26e-11eb-8104-9f13f35ca259.png)
+
 spk2gender
+
 ![spk2gender](https://user-images.githubusercontent.com/48170101/117793875-7e4c2c00-b26e-11eb-9665-d9a4049fa0c8.png)
 
