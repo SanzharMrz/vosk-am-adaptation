@@ -33,6 +33,6 @@ Fine-Tuning русскоязычной акустической модели [ht
 
 # Create features
 
-Для экстракции mel признаков и их нормализации используются скрипты из steps/, здесь например они собраны в один sh [файл]()
+Для экстракции mel признаков и их нормализации используются скрипты из steps/, здесь например они собраны в один sh [finetune_tdnn_1a.sh](https://github.com/kaldi-asr/kaldi/blob/master/egs/aishell2/s5/local/nnet3/tuning/finetune_tdnn_1a.sh)
 
 
