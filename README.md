@@ -31,3 +31,8 @@ Fine-Tuning русскоязычной акустической модели [ht
 
 ![spk2gender](https://user-images.githubusercontent.com/48170101/117793875-7e4c2c00-b26e-11eb-9665-d9a4049fa0c8.png)
 
+# Create features
+
+Для экстракции mel признаков и их нормализации используются скрипты из steps/, здесь например они собраны в один sh [файл]()
+
+
