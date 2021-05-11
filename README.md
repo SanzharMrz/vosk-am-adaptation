@@ -9,9 +9,13 @@ Fine-Tuning русскоязычной акустической модели [ht
 
 В моем кейсе, когда каждый новый wav файл, это новая запись, и плюс отсутсвуют segments, все файлики, где имеется recording-id могут быть заменены на utterance-id
 > If the "segments" file does not exist, the first token on each line of "wav.scp" file is just the utterance id."
+
 Стоит обратить внимание на сортировку по utterance-id:
+
 > All of these files should be sorted. If they are not sorted, you will get errors when you run the scripts
+
 Помимо этого, нужно проверить свои аудио через `sox --i filename`, и если у вас wav файлы разрезанные, плюс мультиканальность, то: 
+
 > The recording side is a concept that relates to telephone conversations where there are two channels, and if not, it's probably safe to use "A". 
 
 *wav.scp*
