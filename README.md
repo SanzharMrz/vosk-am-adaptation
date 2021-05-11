@@ -1,0 +1,1 @@
+# vosk-am-adaptation
