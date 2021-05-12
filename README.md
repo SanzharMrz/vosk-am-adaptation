@@ -56,7 +56,7 @@ unzip vosk-model-ru-0.10.zip
 
 # Create features
 
-Для экстракции mel признаков и их нормализации используются steps/ скрипты из рецепта [CVTE finetuning](https://github.com/zhaoyi2/CVTE_chain_model_finetune/tree/master/steps), **ВОЗМОЖНО** стоит использовать steps из kaldi [aishell2](https://github.com/kaldi-asr/kaldi/tree/master/egs/aishell2/s5), может ли это __повлиять__ на подготовку признаков?. Что касательно скрипта по finetune, они собраны в один sh [finetune_tdnn_1a.sh](https://github.com/kaldi-asr/kaldi/blob/master/egs/aishell2/s5/local/nnet3/tuning/finetune_tdnn_1a.sh), данный pipeline рекомендован в alphacephei [model adaptation](https://alphacephei.com/vosk/adaptation) 
+Для экстракции mel признаков и их нормализации используются steps/ скрипты из рецепта [CVTE finetuning](https://github.com/zhaoyi2/CVTE_chain_model_finetune/tree/master/steps), **ВОЗМОЖНО** стоит использовать steps из kaldi [aishell2](https://github.com/kaldi-asr/kaldi/tree/master/egs/aishell2/s5), может ли это __повлиять__ на подготовку признаков? Что касательно скрипта по finetune, они собраны в один sh [finetune_tdnn_1a.sh](https://github.com/kaldi-asr/kaldi/blob/master/egs/aishell2/s5/local/nnet3/tuning/finetune_tdnn_1a.sh), данный pipeline рекомендован в alphacephei [model adaptation](https://alphacephei.com/vosk/adaptation) 
 
 В репозитории приведен скрипт используемый нами, [ft.sh](ft.sh)
 Непосредственно кусок с формированием данных (возможны неточности, строить провалидировать):
