@@ -59,31 +59,33 @@ unzip vosk-model-ru-0.10.zip
 Для экстракции mel признаков и их нормализации используются скрипты из aishell2 steps/, здесь например они собраны в один sh [finetune_tdnn_1a.sh](https://github.com/kaldi-asr/kaldi/blob/master/egs/aishell2/s5/local/nnet3/tuning/finetune_tdnn_1a.sh), скрипт рекомендован в alphacephei [model adaptation](https://alphacephei.com/vosk/adaptation) 
 
 В репозитории приведен скрипт используемый нами, [ft.sh](ft.sh)
-Непосредственно:
-```bash
-  steps/make_mfcc.sh \
-    --cmd "$train_cmd" --nj $nj \
-    ${data_dir} exp/make_mfcc/${data_set} mfcc
-  steps/compute_cmvn_stats.sh ${data_dir} exp/make_mfcc/${data_set} mfcc || exit 1;
+Непосредственно кусок с формированием данных (возможны неточности, строить провалидировать):
 
-  utils/fix_data_dir.sh ${data_dir} || exit 1;
-  # extract mfcc_hires for AM finetuning
-  utils/copy_data_dir.sh ${data_dir} ${data_dir}_hires
-  
-  rm -f ${data_dir}_hires/{cmvn.scp,feats.scp}
-  # utils/data/perturb_data_dir_volume.sh ${data_dir}_hires || exit 1;
-  steps/make_mfcc.sh \
-    --cmd "$train_cmd" --nj $nj --mfcc-config conf/mfcc_hires.conf \
-    ${data_dir}_hires exp/make_mfcc/${data_set}_hires mfcc_hires
-  
-  steps/compute_cmvn_stats.sh ${data_dir}_hires exp/make_mfcc/${data_set}_hires mfcc_hires
-  
-  # extract ivector features
-  sh steps/online/nnet2/extract_ivectors_online.sh $data_dir ivector exp/nnet3_online/ivectors_test
-  
-  # extract align features
-  sh steps/nnet3/align.sh $data_dir data/lang $ali_dir exp/nnet3/ali
-  
-  # copy ali.*.gz, in case of *=1, it will be ali.1.gz
-  cp exp/nnet3/ali/ali.1.gz $ali_dir/ali.1.gz
+```bash
+# Подсчет mfcc признаков
+steps/make_mfcc.sh \
+  --cmd "$train_cmd" --nj $nj \
+  ${data_dir} exp/make_mfcc/${data_set} mfcc
+# нормализация
+steps/compute_cmvn_stats.sh ${data_dir} exp/make_mfcc/${data_set} mfcc || exit 1;
+
+utils/fix_data_dir.sh ${data_dir} || exit 1;
+# extract mfcc_hires for AM finetuning
+utils/copy_data_dir.sh ${data_dir} ${data_dir}_hires
+
+rm -f ${data_dir}_hires/{cmvn.scp,feats.scp}
+steps/make_mfcc.sh \
+  --cmd "$train_cmd" --nj $nj --mfcc-config conf/mfcc_hires.conf \
+  ${data_dir}_hires exp/make_mfcc/${data_set}_hires mfcc_hires
+
+steps/compute_cmvn_stats.sh ${data_dir}_hires exp/make_mfcc/${data_set}_hires mfcc_hires
+
+# Подсчет ivector
+sh steps/online/nnet2/extract_ivectors_online.sh $data_dir ivector exp/nnet3_online/ivectors_test
+
+# Alignment с использованием ivector
+sh steps/nnet3/align.sh $data_dir data/lang $ali_dir exp/nnet3/ali
+
+# Перенос подсчитанных ali
+cp exp/nnet3/ali/ali.1.gz $ali_dir/ali.1.gz
 ```
