@@ -84,6 +84,10 @@ steps/compute_cmvn_stats.sh ${data_dir}_hires exp/make_mfcc/${data_set}_hires mf
 sh steps/online/nnet2/extract_ivectors_online.sh $data_dir ivector exp/nnet3_online/ivectors_test
 
 # Alignment с использованием ivector
+# К слову в align.sh присутствует наша модификация на размер beam, с целью поддержания как можно большего числа гипотез
+# beam=1000
+# retry_beam=10000
+
 sh steps/nnet3/align.sh $data_dir data/lang $ali_dir exp/nnet3/ali
 
 # Перенос подсчитанных ali
@@ -118,4 +122,6 @@ steps/nnet3/train_dnn.py --stage=$train_stage \
 
 # Inference
 
-Камень преткновения в нашем случае. В vosk-api, имеется скрипт для [inference](https://github.com/alphacep/vosk-api/blob/master/python/test/transcribe_scp.py)
+Процесс декодинга является камнем преткновения в нашем случае. В vosk-api, имеется скрипт для [inference](https://github.com/alphacep/vosk-api/blob/master/python/test/transcribe_scp.py). Который мы собственно и используем как _py_ команду. 
+
+Кейс: Копируем одну из вышеупомянутых .mdl файликов
