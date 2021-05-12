@@ -116,6 +116,15 @@ steps/nnet3/train_dnn.py --stage=$train_stage \
   --egs.frames-per-eg 100 \ # может ли здесь быть проблема с объемом frames
   --dir $dir || exit 1;
 ```
+Со следующими параметрами:
+```bash
+num_jobs_initial=1
+num_jobs_final=1
+num_epochs=5
+initial_effective_lrate=0.000005
+final_effective_lrate=0.000001
+minibatch_size=128
+```
 После тренировки в сгенерированной папке для эксприментов, появятся файлы модели, на каждой 100ой итерации, скомбинированная модель по всем итерациям и финальная модель
 
 ![ls](https://user-images.githubusercontent.com/48170101/117951384-ef0a4b80-b335-11eb-9f4e-2d2f9883432f.png)
