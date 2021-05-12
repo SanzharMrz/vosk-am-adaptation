@@ -125,6 +125,9 @@ initial_effective_lrate=0.000005
 final_effective_lrate=0.000001
 minibatch_size=128
 ```
+![training](https://user-images.githubusercontent.com/48170101/117966891-43b5c280-b346-11eb-8cd4-3420b72852e9.png)
+
+
 После тренировки в сгенерированной папке для эксприментов, появятся файлы модели, на каждой 100ой итерации, скомбинированная модель по всем итерациям и финальная модель
 
 ![ls](https://user-images.githubusercontent.com/48170101/117951384-ef0a4b80-b335-11eb-9f4e-2d2f9883432f.png)
