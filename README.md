@@ -3,7 +3,7 @@
 Fine-Tuning русскоязычной акустической модели [http://vosk-model-ru-0.10.zip](https://alphacephei.com/vosk/models/vosk-model-ru-0.10.zip)
 # Installing
 Ставим Kaldi. Билдим.
-```console
+```bash
 git clone https://github.com/kaldi-asr/kaldi.git
 cd kaldi/tools/ 
 make 
