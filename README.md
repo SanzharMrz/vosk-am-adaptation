@@ -93,6 +93,7 @@ cp exp/nnet3/ali/ali.1.gz $ali_dir/ali.1.gz
 # Training
 
 Далее тренируется копия исходной акустической моделью _input.raw_
+
 ```bash
 steps/nnet3/train_dnn.py --stage=$train_stage \
   --cmd="$decode_cmd" \
@@ -108,6 +109,6 @@ steps/nnet3/train_dnn.py --stage=$train_stage \
   --lang data/lang \
   --ali-dir ${ali_dir} \
   --feat.online-ivector-dir exp/nnet3_online/ivectors_test \
-  --egs.frames-per-eg 100 \
+  --egs.frames-per-eg 100 \ # может ли здесь быть проблема с объемом frames
   --dir $dir || exit 1;
 ```
