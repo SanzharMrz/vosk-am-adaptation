@@ -2,6 +2,15 @@
 
 Fine-Tuning русскоязычной акустической модели [http://vosk-model-ru-0.10.zip](https://alphacephei.com/vosk/models/vosk-model-ru-0.10.zip)
 # Installing
+Ставим Kaldi. Билдим.
+```console
+git clone https://github.com/kaldi-asr/kaldi.git
+cd kaldi/tools/ 
+make 
+cd ../src
+./configure
+make
+```
 
 # Prepare data
 Официальный гайд с Kaldi [Data Preparation](https://kaldi-asr.org/doc/data_prep.html). Есть еще код от JohnDoe, для [RM](https://catalog.ldc.upenn.edu/LDC93S3C) датасета, форкнутый репозиторий Kaldi, в котором [prepare_data.py](https://github.com/JohnDoe02/kaldi/blob/private/egs/rm/s5/local/prepare_data.py) парсящий
