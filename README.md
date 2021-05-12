@@ -92,4 +92,22 @@ cp exp/nnet3/ali/ali.1.gz $ali_dir/ali.1.gz
 
 # Training
 
-Далее тренируется копия исходной акустической моделью 
+Далее тренируется копия исходной акустической моделью _input.raw_
+```bash
+steps/nnet3/train_dnn.py --stage=$train_stage \
+  --cmd="$decode_cmd" \
+  --feat.cmvn-opts="--norm-means=false --norm-vars=false" \
+  --trainer.input-model $dir/input.raw \
+  --trainer.num-epochs $num_epochs \
+  --trainer.optimization.num-jobs-initial $num_jobs_initial \
+  --trainer.optimization.num-jobs-final $num_jobs_final \
+  --trainer.optimization.initial-effective-lrate $initial_effective_lrate \
+  --trainer.optimization.final-effective-lrate $final_effective_lrate \
+  --trainer.optimization.minibatch-size $minibatch_size \
+  --feat-dir ${data_dir}_hires \
+  --lang data/lang \
+  --ali-dir ${ali_dir} \
+  --feat.online-ivector-dir exp/nnet3_online/ivectors_test \
+  --egs.frames-per-eg 100 \
+  --dir $dir || exit 1;
+```
