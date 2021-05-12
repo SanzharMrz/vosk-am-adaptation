@@ -89,3 +89,7 @@ sh steps/nnet3/align.sh $data_dir data/lang $ali_dir exp/nnet3/ali
 # Перенос подсчитанных ali
 cp exp/nnet3/ali/ali.1.gz $ali_dir/ali.1.gz
 ```
+
+# Training
+
+Далее тренируется копия исходной акустической моделью 
