@@ -58,4 +58,4 @@ unzip vosk-model-ru-0.10.zip
 
 Для экстракции mel признаков и их нормализации используются скрипты из aishell2 steps/, здесь например они собраны в один sh [finetune_tdnn_1a.sh](https://github.com/kaldi-asr/kaldi/blob/master/egs/aishell2/s5/local/nnet3/tuning/finetune_tdnn_1a.sh), скрипт рекомендован в alphacephei [model adaptation](https://alphacephei.com/vosk/adaptation) 
 
-
+В репозитории приведен скрипт используемый нами, [ft.sh](ft.sh)
