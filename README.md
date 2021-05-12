@@ -2,7 +2,7 @@
 
 Fine-Tuning русскоязычной акустической модели [http://vosk-model-ru-0.10.zip](https://alphacephei.com/vosk/models/vosk-model-ru-0.10.zip)
 # Installing
-Ставим Kaldi. Билдим.
+Ставим Kaldi. Билдим. Качаем модельку.
 ```bash
 # Copy repo
 git clone https://github.com/kaldi-asr/kaldi.git
@@ -19,6 +19,11 @@ cd ../src
 
 # Make
 make
+
+# Download and unzip model
+cd ../
+wget https://alphacephei.com/vosk/models/vosk-model-ru-0.10.zip
+unzip vosk-model-ru-0.10.zip
 ```
 
 # Prepare data
