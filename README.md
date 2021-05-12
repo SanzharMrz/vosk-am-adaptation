@@ -4,11 +4,20 @@ Fine-Tuning русскоязычной акустической модели [ht
 # Installing
 Ставим Kaldi. Билдим.
 ```bash
+# Copy repo
 git clone https://github.com/kaldi-asr/kaldi.git
+
+# Enter tools
 cd kaldi/tools/ 
+
+# Make
 make 
+
+# Enter source and configure
 cd ../src
 ./configure
+
+# Make
 make
 ```
 
