@@ -117,3 +117,5 @@ steps/nnet3/train_dnn.py --stage=$train_stage \
 ![ls](https://user-images.githubusercontent.com/48170101/117951384-ef0a4b80-b335-11eb-9f4e-2d2f9883432f.png)
 
 # Inference
+
+Камень преткновения в нашем случае. В vosk-api, имеется скрипт для [inference](https://github.com/alphacep/vosk-api/blob/master/python/test/transcribe_scp.py)
