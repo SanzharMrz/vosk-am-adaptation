@@ -124,7 +124,20 @@ steps/nnet3/train_dnn.py --stage=$train_stage \
 
 Процесс декодинга является камнем преткновения в нашем случае. В vosk-api, имеется скрипт для [inference](https://github.com/alphacep/vosk-api/blob/master/python/test/transcribe_scp.py). Который мы собственно и используем как _py_ команду. 
 
-__Кейс:__ Копируем одну из вышеупомянутых .mdl файликов в папку _am_ скачанной vosk-модели. Допустим final.mdl (Что характерно, при обучении frameы-per-eg был равен 100). И получаем:
+__Кейс: 1__ Копируем одну из вышеупомянутых .mdl файликов в папку _am_ скачанной vosk-модели. Допустим final.mdl (Что характерно, при обучении frameы-per-eg был равен 100). И получаем:
 
 ![inference_final](https://user-images.githubusercontent.com/48170101/117957473-eddc1d00-b33b-11eb-9731-36df023a1219.png)
+
+__Кейс: 2__ Копируем любую другую из моделей. Например combined.mdl:
+
+![inference_combined](https://user-images.githubusercontent.com/48170101/117958178-95f1e600-b33c-11eb-8955-74594648fb51.png)
+
+__Кейс: 3__ 100.mdl:
+
+![100.mdl](https://user-images.githubusercontent.com/48170101/117959014-6becf380-b33d-11eb-9358-ed843393abcd.png)
+
+__Еще немного меты:__
+
+![image](https://user-images.githubusercontent.com/48170101/117958791-30eac000-b33d-11eb-93f6-688b09f6e698.png)
+
 
