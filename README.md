@@ -1,8 +1,8 @@
 # Vosk-am-adaptation / [DRAFT] + [HELP!]
 
-Fine-Tuning русскоязычной акустической модели [http://vosk-model-ru-0.10.zip](https://alphacephei.com/vosk/models/vosk-model-ru-0.10.zip)
+Fine-Tuning russian-language acoustic model[http://vosk-model-ru-0.10.zip](https://alphacephei.com/vosk/models/vosk-model-ru-0.10.zip)
 # Installing
-Ставим Kaldi. Билдим. Качаем модельку.
+Installing Kaldi. Build. Download the model.
 ```bash
 # Copy repo
 git clone https://github.com/kaldi-asr/kaldi.git
@@ -27,20 +27,20 @@ unzip vosk-model-ru-0.10.zip
 ```
 
 # Prepare data
-Официальный гайд с Kaldi [Data Preparation](https://kaldi-asr.org/doc/data_prep.html). Есть еще код от JohnDoe, для [RM](https://catalog.ldc.upenn.edu/LDC93S3C) датасета, форкнутый репозиторий Kaldi, в котором [prepare_data.py](https://github.com/JohnDoe02/kaldi/blob/private/egs/rm/s5/local/prepare_data.py) парсящий
-некий dataset.tsv с колонками,  __"File"__, __"Length"__, __"Directory"__, __"Recognition"__ , здесь стоит обратить внимание, что __"File"__ - это название файла с полным путем и некоторой метой,  "Length" - может быть заполнен чем угодно, "Directory" - полный путь до папки с файлами,  "Recognition" - текст из wav файлов.
+The official guide from Kaldi [Data Preparation](https://kaldi-asr.org/doc/data_prep.html).  There is also a code from JohnDoe, for [RM](https://catalog.ldc.upenn.edu/LDC93S3C) dataset, where [prepare_data.py](https://github.com/JohnDoe02/kaldi/blob/private/egs/rm/s5/local/prepare_data.py) parses
+some dataset.tsv with columns,  __"File"__, __"Length"__, __"Directory"__, __"Recognition"__ , Here you should note that __"File"__ is the file name with the full path and some meta, "Length" can be filled with anything, "Directory" is the full path to the folder with the files, "Recognition" is the text from the wav files.
 
 > If the "segments" file does not exist, the first token on each line of "wav.scp" file is just the utterance id."
 
-Стоит обратить внимание на сортировку по utterance-id:
+Pay attention to the sorting by utterance-id:
 
 > All of these files should be sorted. If they are not sorted, you will get errors when you run the scripts
 
-Помимо этого, нужно проверить свои аудио через `sox --i filename`, и если у вас wav файлы разрезанные, плюс мультиканальность, то: 
+In addition, you need to check your audio via `sox --i filename`, and if you have cutted wav files and  multichannel, then: 
 
 > The recording side is a concept that relates to telephone conversations where there are two channels, and if not, it's probably safe to use "A". 
 
-В моем кейсе, когда каждый новый wav файл, это новая запись, и плюс отсутсвуют segments, все файлики, где имеется recording-id могут быть заменены на utterance-id:
+In my case, each new wav file is a new record, and there are no segments, so all files with recording-id can be replaced by utterance-id:
 
 *wav.scp*
 
@@ -56,17 +56,18 @@ unzip vosk-model-ru-0.10.zip
 
 # Create features
 
-Для экстракции mel признаков и их нормализации используются steps/ скрипты из рецепта [CVTE finetuning](https://github.com/zhaoyi2/CVTE_chain_model_finetune/tree/master/steps), **ВОЗМОЖНО** стоит использовать steps из kaldi [aishell2](https://github.com/kaldi-asr/kaldi/tree/master/egs/aishell2/s5), может ли это __повлиять__ на подготовку признаков? Что касательно скрипта по finetune, они собраны в один sh [finetune_tdnn_1a.sh](https://github.com/kaldi-asr/kaldi/blob/master/egs/aishell2/s5/local/nnet3/tuning/finetune_tdnn_1a.sh), данный pipeline рекомендован в alphacephei [model adaptation](https://alphacephei.com/vosk/adaptation) 
+The steps/scripts from the [CVTE finetuning](https://github.com/zhaoyi2/CVTE_chain_model_finetune/tree/master/steps) recipe are used to extract mel features and normalize them, **MAYBE** we should use the steps from kaldi [aishell2](https://github.com/kaldi-asr/kaldi/tree/master/egs/aishell2/s5), can this __affect__ the preparation of features? As for the finetune script, they are combined into one sh [finetune_tdnn_1a.sh](https://github.com/kaldi-asr/kaldi/blob/master/egs/aishell2/s5/local/nnet3/tuning/finetune_tdnn_1a.sh), this pipeline is recommended in alphacephei [model adaptation](https://alphacephei.com/vosk/adaptation) 
 
-В репозитории приведен скрипт используемый нами, [ft.sh](ft.sh)
-Непосредственно кусок с формированием данных (возможны неточности, строить провалидировать):
+Here is the script we use, [ft.sh](ft.sh)
+Directly a piece with data preparation (possible inaccuracies, worth validating):
 
 ```bash
-# Подсчет mfcc признаков
+# Compute mfcc 
 steps/make_mfcc.sh \
   --cmd "$train_cmd" --nj $nj \
   ${data_dir} exp/make_mfcc/${data_set} mfcc
-# нормализация
+  
+# Normalization
 steps/compute_cmvn_stats.sh ${data_dir} exp/make_mfcc/${data_set} mfcc || exit 1;
 
 utils/fix_data_dir.sh ${data_dir} || exit 1;
@@ -80,23 +81,22 @@ steps/make_mfcc.sh \
 
 steps/compute_cmvn_stats.sh ${data_dir}_hires exp/make_mfcc/${data_set}_hires mfcc_hires
 
-# Подсчет ivector
+# Compute ivector
 sh steps/online/nnet2/extract_ivectors_online.sh $data_dir ivector exp/nnet3_online/ivectors_test
 
-# Alignment с использованием ivector
-# К слову в align.sh присутствует наша модификация на размер beam, с целью поддержания как можно большего числа гипотез
-# beam=1000
+# Align with ivector
+# By the way, in align.sh there is our modification on the size of the beam, in order to maintain as many hypotheses as possible# beam=1000
 # retry_beam=10000
 
 sh steps/nnet3/align.sh $data_dir data/lang $ali_dir exp/nnet3/ali
 
-# Перенос подсчитанных ali
+# Moving the counted ali
 cp exp/nnet3/ali/ali.1.gz $ali_dir/ali.1.gz
 ```
 
 # Training
 
-Далее тренируется копия исходной акустической моделью _input.raw_
+Next, train a copy of the original acoustic model _input.raw_.
 
 ```bash
 steps/nnet3/train_dnn.py --stage=$train_stage \
@@ -116,7 +116,7 @@ steps/nnet3/train_dnn.py --stage=$train_stage \
   --egs.frames-per-eg 100 \ # может ли здесь быть проблема с объемом frames
   --dir $dir || exit 1;
 ```
-Со следующими параметрами:
+With the following parameters:
 ```bash
 num_jobs_initial=1
 num_jobs_final=1
@@ -127,20 +127,19 @@ minibatch_size=128
 ```
 ![training](https://user-images.githubusercontent.com/48170101/117966891-43b5c280-b346-11eb-8cd4-3420b72852e9.png)
 
-
-После тренировки в сгенерированной папке для эксприментов, появятся файлы модели, на каждой 100ой итерации, скомбинированная модель по всем итерациям и финальная модель
+After training, in the generated folder for experiments, there will be .mdl model files
 
 ![ls](https://user-images.githubusercontent.com/48170101/117951384-ef0a4b80-b335-11eb-9f4e-2d2f9883432f.png)
 
 # Inference
 
-Процесс декодинга является камнем преткновения в нашем случае. В vosk-api, имеется скрипт для [inference](https://github.com/alphacep/vosk-api/blob/master/python/test/transcribe_scp.py). Который мы собственно и используем как _py_ команду. 
+Decoding process is the stumbling block in our case. In vosk-api, there is a script for [inference](https://github.com/alphacep/vosk-api/blob/master/python/test/transcribe_scp.py). Which we actually use as a _py_ command. 
 
-__Кейс: 1__ Копируем одну из вышеупомянутых .mdl файликов в папку _am_ скачанной vosk-модели. Допустим final.mdl (Что характерно, при обучении frameы-per-eg был равен 100). И получаем:
+__Case: 1__ Copy one of the aforementioned .mdl files into the _am_ folder of the downloaded vosk-model. Let's say final.mdl (What is typical, during the training frame-per-eg was equal to 100). And we get:
 
 ![inference_final](https://user-images.githubusercontent.com/48170101/117957473-eddc1d00-b33b-11eb-9731-36df023a1219.png)
 
-__Кейс: 2__ Копируем любую другую из моделей. Например combined.mdl:
+__Case: 2__ Copy any of the other models. For example combined.mdl:
 
 ![inference_combined](https://user-images.githubusercontent.com/48170101/117958178-95f1e600-b33c-11eb-8955-74594648fb51.png)
 
@@ -148,8 +147,6 @@ __Кейс: 3__ 100.mdl:
 
 ![100.mdl](https://user-images.githubusercontent.com/48170101/117959014-6becf380-b33d-11eb-9358-ed843393abcd.png)
 
-__Еще немного меты:__
+__A little more meta information:__
 
 ![image](https://user-images.githubusercontent.com/48170101/117958791-30eac000-b33d-11eb-93f6-688b09f6e698.png)
-
-
