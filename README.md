@@ -44,6 +44,11 @@ In my case, each new wav file is a new record, and there are no segments, so all
 
 *wav.scp*
 
+<div align="center">
+    <img src=https://user-images.githubusercontent.com/48170101/117793265-e0586180-b26d-11eb-96d3-4614ed6c66c7.png" >
+    <p>wav.scp</p>
+</div>
+                                               
 ![wav.scp](https://user-images.githubusercontent.com/48170101/117793265-e0586180-b26d-11eb-96d3-4614ed6c66c7.png)
 
 *utt2spk*
