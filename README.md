@@ -142,7 +142,7 @@ __Case: 2__ Copy any of the other models. For example combined.mdl:
 
 ![inference_combined](https://user-images.githubusercontent.com/48170101/117958178-95f1e600-b33c-11eb-8955-74594648fb51.png)
 
-__Кейс: 3__ 100.mdl:
+__Case: 3__ 100.mdl:
 
 ![100.mdl](https://user-images.githubusercontent.com/48170101/117959014-6becf380-b33d-11eb-9358-ed843393abcd.png)
 
