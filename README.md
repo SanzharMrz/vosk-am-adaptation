@@ -146,6 +146,10 @@ __Case: 3__ 100.mdl:
 
 ![100.mdl](https://user-images.githubusercontent.com/48170101/117959014-6becf380-b33d-11eb-9358-ed843393abcd.png)
 
+__Case: 4__ Model with same params and 1 epoch training (much better):
+
+![final.mdl 1 epoch](https://user-images.githubusercontent.com/48170101/118093894-e5451e80-b3ef-11eb-9a7c-3e9927d685b1.png)
+
 __A little more meta information:__
 
 ![image](https://user-images.githubusercontent.com/48170101/117958791-30eac000-b33d-11eb-93f6-688b09f6e698.png)
