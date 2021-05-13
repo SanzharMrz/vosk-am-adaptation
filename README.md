@@ -1,6 +1,6 @@
 # Vosk-am-adaptation / [DRAFT] + [HELP!]
 
-Fine-Tuning russian-language acoustic model[http://vosk-model-ru-0.10.zip](https://alphacephei.com/vosk/models/vosk-model-ru-0.10.zip)
+Fine-Tuning russian-language acoustic model [http://vosk-model-ru-0.10.zip](https://alphacephei.com/vosk/models/vosk-model-ru-0.10.zip)
 # Installing
 Installing Kaldi. Build. Download the model.
 ```bash
