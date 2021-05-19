@@ -79,8 +79,7 @@ sh steps/nnet3/align.sh $data_dir data/lang am $ali_dir
 
 
 # Training
-
-Next, train a copy of the original acoustic model _input.raw_.
+# Next, train a copy of the original acoustic model _input.raw_.
 
 ```bash
 steps/nnet3/train_dnn.py --stage=$train_stage \
@@ -93,18 +92,19 @@ steps/nnet3/train_dnn.py --stage=$train_stage \
   --trainer.optimization.initial-effective-lrate $initial_effective_lrate \
   --trainer.optimization.final-effective-lrate $final_effective_lrate \
   --trainer.optimization.minibatch-size $minibatch_size \
-  --feat-dir ${data_dir}_hires \
+  --feat-dir ${data_dir} \
   --lang data/lang \
   --ali-dir ${ali_dir} \
   --feat.online-ivector-dir exp/nnet3_online/ivectors_test \
   --egs.frames-per-eg 100 \ # может ли здесь быть проблема с объемом frames
   --dir $dir || exit 1;
 ```
+
 With the following parameters:
 ```bash
 num_jobs_initial=1
 num_jobs_final=1
-num_epochs=5
+num_epochs=1
 initial_effective_lrate=0.000005
 final_effective_lrate=0.000001
 minibatch_size=128
