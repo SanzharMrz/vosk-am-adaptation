@@ -70,28 +70,13 @@ steps/make_mfcc.sh \
 steps/compute_cmvn_stats.sh ${data_dir} exp/make_mfcc/${data_set} mfcc || exit 1;
 
 utils/fix_data_dir.sh ${data_dir} || exit 1;
-# extract mfcc_hires for AM finetuning
-utils/copy_data_dir.sh ${data_dir} ${data_dir}_hires
-
-rm -f ${data_dir}_hires/{cmvn.scp,feats.scp}
-steps/make_mfcc.sh \
-  --cmd "$train_cmd" --nj $nj --mfcc-config conf/mfcc_hires.conf \
-  ${data_dir}_hires exp/make_mfcc/${data_set}_hires mfcc_hires
-
-steps/compute_cmvn_stats.sh ${data_dir}_hires exp/make_mfcc/${data_set}_hires mfcc_hires
 
 # Compute ivector
 sh steps/online/nnet2/extract_ivectors_online.sh $data_dir ivector exp/nnet3_online/ivectors_test
 
 # Align with ivector
-# By the way, in align.sh there is our modification on the size of the beam, in order to maintain as many hypotheses as possible# beam=1000
-# retry_beam=10000
+sh steps/nnet3/align.sh $data_dir data/lang am $ali_dir
 
-sh steps/nnet3/align.sh $data_dir data/lang $ali_dir exp/nnet3/ali
-
-# Moving the counted ali
-cp exp/nnet3/ali/ali.1.gz $ali_dir/ali.1.gz
-```
 
 # Training
 
